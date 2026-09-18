@@ -22,7 +22,7 @@ const CONFIG = {
     { label: "總供應量", value: "1,000,000,000" },
     { label: "稅率", value: "0 / 0" },
     { label: "流動性", value: "已銷毀" },
-    { label: "鏈", value: "BSC" },
+    { label: "鏈", value: "BNB" },
   ],
 };
 
@@ -70,7 +70,7 @@ function ScatteredBolts() {
 // 即時鏈上交易 — public BSC RPC (免 API key)，直接讀取 ERC20 Transfer event
 // ============================================
 type TokenTx = { hash: string; from: string; to: string; value: string; timeStamp: string };
-type DexPair = { pairAddress: string };
+type DexPair = { pairAddress: string; priceNative: string };
 
 const BSC_RPC = "https://bsc-rpc.publicnode.com";
 const TRANSFER_TOPIC = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef";
@@ -168,15 +168,17 @@ function LiveActivity() {
   if (!CONFIG.contract) return null;
 
   const pairLower = pair?.pairAddress?.toLowerCase();
+  const priceNative = Number(pair?.priceNative ?? 0);
   const rows = txs?.map((t) => {
     const isBuy = pairLower && t.from.toLowerCase() === pairLower;
     const isSell = pairLower && t.to.toLowerCase() === pairLower;
-    const amount = Number(t.value) / 10 ** 18;
+    const tokenAmount = Number(t.value) / 10 ** 18;
+    const bnbAmount = tokenAmount * priceNative;
     return {
       hash: t.hash,
       kind: isBuy ? "買入" : isSell ? "賣出" : "轉帳",
       wallet: isBuy ? t.to : t.from,
-      amount,
+      bnbAmount,
       time: t.timeStamp,
     };
   });
@@ -216,7 +218,7 @@ function LiveActivity() {
               </div>
               <div className="text-right">
                 <div className="font-mono text-sm text-[#d4af37]">
-                  {r.amount.toLocaleString(undefined, { maximumFractionDigits: 0 })} {CONFIG.ticker}
+                  {r.bnbAmount > 0 ? r.bnbAmount.toLocaleString(undefined, { maximumFractionDigits: 4 }) : "…"} BNB
                 </div>
                 <div className="font-mono text-[10px] text-[#b8ac8a]">{timeAgo(r.time)}</div>
               </div>
