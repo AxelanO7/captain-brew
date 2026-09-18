@@ -14,7 +14,7 @@ const CONFIG = {
   contract: "0x73cd9a6b64ac91bd3adbacefadaa18145c62d0d8",
   chain: "BSC",
   links: {
-    twitter: "",
+    twitter: "https://x.com/captainbrewcoin",
     telegram: "",
     buy: "https://dexscreener.com/bsc/0x73cd9a6b64ac91bd3adbacefadaa18145c62d0d8",
   },
