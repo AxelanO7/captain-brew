@@ -11,12 +11,12 @@ const CONFIG = {
   tagline: "復甦，永不止步",
   subTagline:
     "Captain Brew 不僅僅是一個可愛的吉祥物。他是 $BREW 復甦願景的象徵：代表著一個在崩盤中倖存下來的協議、一個團結一致的社區，以及一個肩負單一使命的機器人——那就是讓 Brew 重回巔峰價格，並在此基礎上再創新高。",
-  contract: "0x73cd9a6b64ac91bd3adbacefadaa18145c62d0d8",
+  contract: "TBA",
   chain: "BSC",
   links: {
-    twitter: "https://x.com/captainbrewcoin",
+    twitter: "#",
     telegram: "",
-    buy: "https://dexscreener.com/bsc/0x73cd9a6b64ac91bd3adbacefadaa18145c62d0d8",
+    buy: "#",
   },
   specs: [
     { label: "總供應量", value: "1,000,000,000" },
